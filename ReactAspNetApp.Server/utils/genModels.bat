@@ -1,0 +1,2 @@
+@REM Copy this code to the server's folder to run it.
+dotnet ef dbcontext scaffold "server=tcp:gsp-esg-dbserver.database.windows.net,1433;Database=esgdb;Uid=sysadmin;Pwd=123qwe!@#QWE;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;" "Microsoft.EntityFrameworkCore.SqlServer" -o ./Models -c ESGDBContext -f

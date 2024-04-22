@@ -1,0 +1,6 @@
+.vs/
+ReactAspNetApp.Server/bin
+ReactAspNetApp.Server/obj
+ReactAspNetApp.Client/obj
+reactaspnetapp.client/undefined/.aspnet/https/reactaspnetapp.client.key
+reactaspnetapp.client/undefined/.aspnet/https/reactaspnetapp.client.pem

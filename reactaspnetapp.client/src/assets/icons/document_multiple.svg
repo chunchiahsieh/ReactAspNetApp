@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 12.7 12.7"
+   version="1.1"
+   id="svgDocMultiple"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defsDocMultiple">
+    <clipPath
+       id="clipDocMultiple">
+      <rect
+         x="807"
+         y="272"
+         width="41"
+         height="48"
+         id="rectDocMultiple" />
+    </clipPath>
+  </defs>
+  <g
+     id="layerDocMultiple">
+    <g
+       clip-path="url(#clipDocMultiple)"
+       transform="matrix(0.26458333,0,0,0.26458333,-212.42913,-71.947117)"
+       id="g4DocMultiple">
+      <path
+         d="m 820,300 h 12 v 3 h -12 z"
+         fill-rule="evenodd"
+         id="path1DocMultiple" />
+      <path
+         d="m 820,291 v 3 H 838.548 840 v -3 h -1.452 z"
+         fill-rule="evenodd"
+         id="path2DocMultiple" />
+      <path
+         d="m 820,282 v 3 H 838.548 840 v -3 h -1.452 z"
+         fill-rule="evenodd"
+         id="path3DocMultiple" />
+      <path
+         d="m 844.923,272 h -28.942 c -1.728,0.029 -3.106,1.476 -3.077,3.231 0,0 0,0.001 0,0.001 v 2.292 h -2.827 c -1.731,0.033 -3.109,1.486 -3.076,3.244 0,0.001 0,0.001 0,0.002 v 35.985 c -0.033,1.758 1.344,3.212 3.075,3.245 0,0 0,0 10e-4,0 h 28.942 c 1.731,-0.033 3.109,-1.485 3.076,-3.244 0,-10e-4 0,-10e-4 0,-10e-4 v -2.952 h 2.828 c 1.728,-0.03 3.105,-1.476 3.076,-3.232 0,0 0,0 0,0 v -35.319 c 0.04,-1.755 -1.328,-3.211 -3.055,-3.251 C 844.936,272 844.93,272 844.923,272 Z m -5.78,44.735 c 0,0.133 -0.078,0.2 -0.124,0.2 h -28.942 c -0.039,0 -0.125,-0.067 -0.125,-0.2 V 280.75 c 0,-0.134 0.086,-0.2 0.125,-0.2 h 2.827 v 29.987 c -0.029,1.756 1.348,3.202 3.076,3.232 0,0 10e-4,0 10e-4,0 h 23.162 z m 5.904,-6.191 c 0,0.133 -0.078,0.2 -0.124,0.2 h -28.942 c -0.039,0 -0.125,-0.067 -0.125,-0.2 v -35.319 c 0,-0.133 0.086,-0.2 0.125,-0.2 h 28.942 c 0.046,0 0.124,0.067 0.124,0.2 z"
+         fill-rule="evenodd"
+         id="path4DocMultiple" />
+    </g>
+  </g>
+</svg>

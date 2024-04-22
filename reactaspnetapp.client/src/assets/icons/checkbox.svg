@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Svg Vector Icons : http://www.onlinewebfonts.com/icon -->
+
+<svg
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="22.142859"
+   height="22.142859"
+   focusable="false"
+   aria-hidden="true"
+   viewBox="0 0 22.142859 22.142859"
+   data-testid="CheckBoxIcon"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg1"
+   sodipodi:docname="checkbox.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     id="path1"
+     d="M 16.757332,6.4175151 9.1674877,14.007348 5.5776439,10.42727 l -1.4101562,1.410156 5,5 9.0000003,-8.999989 z"
+     inkscape:export-filename="checkbox.svg"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96" />
+  <rect
+     style="opacity:0.78;fill:#000000;fill-opacity:0;stroke:#000000;stroke-width:2;stroke-dasharray:none"
+     id="rect1"
+     width="20.142859"
+     height="20.142859"
+     x="1"
+     y="1"
+     inkscape:export-filename="checkbox2.svg"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96" />
+</svg>

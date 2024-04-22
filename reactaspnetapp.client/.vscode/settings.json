@@ -1,0 +1,8 @@
+{
+    // "vitest.enable": true,
+    // "vitest.watchOnStartup": true,
+    // "vitest.commandLine": "npm run test",
+    "mdx.experimentalLanguageServer": true,
+    "reactComponentGenerator.importReact": false,
+    "reactComponentGenerator.stylesLanguage": "module.scss",
+}

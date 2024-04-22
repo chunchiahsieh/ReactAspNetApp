@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+
+  <style>
+    #SplashScreen {
+      display: flex;
+      /* justify-content: center; */
+      padding-left: 23%;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      font-size: 5rem;
+    }
+  </style>
+
+  <body>
+    <div id="SplashScreen">Loading</div>
+    <script>
+      // JavaScript to dynamically update the SVG text
+      let loadingText = "Loading";
+      let dotCount = 0;
+      const maxDots = 20;
+      const loadingElement = document.getElementById("SplashScreen");
+
+      const updateLoadingText = () => {
+        if (dotCount < maxDots) {
+          loadingText += ".";
+          dotCount++;
+        } else {
+          loadingText = "Loading";
+          dotCount = 0;
+        }
+        loadingElement.textContent = loadingText;
+      };
+      // Update the text every second
+      const loadingIntervalId = setInterval(updateLoadingText, 100);
+      window.addEventListener("splashscreen-remove", () => {
+        clearInterval(loadingIntervalId);
+      });
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

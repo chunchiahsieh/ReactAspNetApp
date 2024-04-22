@@ -1,0 +1,80 @@
+{
+  "confirm": "確認",
+  "delete2": "刪除",
+  "save_and_close": "儲存並關閉",
+  "return2": "返回",
+  "cancel": "取消",
+  "confirm_and_delete": "確認刪除",
+  "confirm_and_discard": "確認捨棄",
+  "signin": "登入",
+  "forgetpassword": "忘記密碼",
+  "signout": "登出",
+  "close": "關閉",
+  "resetpassword": "重置密碼",
+  "confirmSelection": "確定選取",
+  "account": "帳號",
+  "password": "密碼",
+  "selected": "已選擇",
+  "totalRecords": "總筆數",
+  "page": "頁數",
+  "ask_delete_record": "是否刪除已選取的紀錄?",
+  "ask_discard_record": "是否捨棄已填寫的紀錄?",
+  "just_can_select_one_entry": "該操作只能選擇一筆資料",
+  "just_one_row": "該操作只能選擇一筆資料",
+  "at_least_one_row": "請至少選擇一筆資料",
+  "missing_required_field": "有必填欄位未填寫，請填寫完成後再送出",
+  "ask_for_account": "請填寫帳號",
+  "no_info_need_to_reenter": "查無資訊請重新輸入",
+  "send_passwd_reset_email": "重置密碼已發出到使用者的電子郵件",
+  "be_used_cannot_removed": "所選取的項目有被其他紀錄引用，無法刪除",
+  "only_one_unit_per_unit_library": "發生錯誤，一個單位庫只能有一個基礎單位",
+  "i18n": "語言",
+  "email": "郵箱",
+  "login": "登入",
+  "logout": "登出",
+  "bdc_management": "基本資料管理",
+  "platform_name": "家登永續發展平台",
+  "login_page": {
+    "fail_login": "登入失敗，請再試一次",
+    "not_all_filled": "並非所有欄位都已填寫，請填寫完整後再送出"
+  },
+  "forget_password_page": {
+    "title": "請聯繫您的組織管理原為您重設密碼，聯絡資訊如下:",
+    "stCompany": "公司名稱",
+    "stAdminName": "管理員",
+    "stAdminEmail": "聯絡信箱",
+    "stFieldEmpty": "查無資訊請重新輸入",
+    "stEnterCompanyID": "請輸入公司統編",
+    "stCannotFindCompany": "抱歉，請重新輸入公司統編",
+    "stSubmit": "查詢管理員資訊"
+  },
+  "page_main": {
+    "title": "請選擇要進入的模組功能",
+    "system_management": "系統管理",
+    "oghg_management": "組織型溫盤管理",
+    "pcf_management": "產品碳排放管理",
+    "spm_management": "永續採購管理"
+  },
+  "main_ribbon": {
+    "new": "新增",
+    "refresh": "重新整理",
+    "check": "查看",
+    "edit": "編輯",
+    "delete": "刪除",
+    "export_file": "匯出檔案",
+    "download_template": "下載範本",
+    "upload_file": "上傳檔案",
+    "drop_file_here": "拖曳檔案至此",
+    "file_has_been_uploaded": "檔案已上傳"
+  },
+  "esg_table": {
+    "num_of_selected": "已選擇",
+    "filter": "篩選",
+    "edit_column_view": "編輯欄位顯示"
+  },
+  "backdrop": {
+    "error_try_again": "發生錯誤，請稍後再試一次或聯繫系統管理員",
+    "link_not_found": "找不到該連結，該畫面或記錄可能已被移除",
+    "access_denied": "您沒有該功能的頁面權限，請聯繫系統管理員"
+  }
+}
