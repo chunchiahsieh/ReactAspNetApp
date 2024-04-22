@@ -712,3 +712,22 @@ export interface WeatherForecast {
   temperatureF?: number;
   summary?: string | null;
 }
+
+export interface OGHG_Emission_Factor_Library_ReadDTO {
+  /** @format int32 */
+  emission_factor_library_name?: string;
+  Description?: string | null;
+  library_type?: string | null;
+  doc_ref?: string | null;
+  origin_correlation_id?: string | null;
+  year?: number | null;
+  version?: number | null;
+  /** @format int32 */
+  Created_By?: number;
+  /** @format date-time */
+  Created_On?: string;
+  /** @format int32 */
+  Modified_By?: number;
+  /** @format date-time */
+  Modified_On?: string;
+}
