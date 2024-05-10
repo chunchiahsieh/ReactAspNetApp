@@ -26,6 +26,10 @@ import {
   SmCountry,
   SmCountryCreateDTO,
   SmCountryUpdateDTO,
+  SmEmissionFactorLibrary,
+  SmEmissionFactorLibraryCreateDTO,
+  SmEmissionFactorLibraryReadDTO,
+  SmEmissionFactorLibraryUpdateDTO,
   SmLanguage,
   SmOrgGroup,
   SmOrgGroupCreateDTO,
@@ -910,6 +914,145 @@ export class Api<SecurityDataType = unknown> extends HttpClient<SecurityDataType
   smCountryDelete = (id: string, params: RequestParams = {}) =>
     this.request<void, any>({
       path: `/api/SmCountry/${id}`,
+      method: "DELETE",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesList
+   * @request GET:/api/SmEmissionFactorLibraries
+   */
+  smEmissionFactorLibrariesList = (params: RequestParams = {}) =>
+    this.request<SmEmissionFactorLibraryReadDTO[], any>({
+      path: `/api/SmEmissionFactorLibraries`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesCreate
+   * @request POST:/api/SmEmissionFactorLibraries
+   */
+  smEmissionFactorLibrariesCreate = (data: SmEmissionFactorLibraryCreateDTO, params: RequestParams = {}) =>
+    this.request<SmEmissionFactorLibrary, any>({
+      path: `/api/SmEmissionFactorLibraries`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesDelete
+   * @request DELETE:/api/SmEmissionFactorLibraries
+   */
+  smEmissionFactorLibrariesDelete = (data: number[], params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/SmEmissionFactorLibraries`,
+      method: "DELETE",
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesSearchCreate
+   * @request POST:/api/SmEmissionFactorLibraries/search
+   */
+  smEmissionFactorLibrariesSearchCreate = (data: OneRequest[], params: RequestParams = {}) =>
+    this.request<SmEmissionFactorLibrary[], any>({
+      path: `/api/SmEmissionFactorLibraries/search`,
+      method: "POST",
+      body: data,
+      type: ContentType.Json,
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesUploadCreate
+   * @request POST:/api/SmEmissionFactorLibraries/upload
+   */
+  smEmissionFactorLibrariesUploadCreate = (
+    data: {
+      /** @format binary */
+      File?: File;
+      /** @format int32 */
+      HourOffset?: number;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/SmEmissionFactorLibraries/upload`,
+      method: "POST",
+      body: data,
+      type: ContentType.FormData,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesDetail
+   * @request GET:/api/SmEmissionFactorLibraries/{OGName}/{VCode}
+   */
+  smEmissionFactorLibrariesDetail = (ogName: string, vCode: string, params: RequestParams = {}) =>
+    this.request<SmEmissionFactorLibrary, any>({
+      path: `/api/SmEmissionFactorLibraries/${ogName}/${vCode}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesUpdate
+   * @request PUT:/api/SmEmissionFactorLibraries/{OGName}/{VCode}
+   */
+  smEmissionFactorLibrariesUpdate = (
+    ogName: string,
+    vCode: string,
+    data: SmEmissionFactorLibraryUpdateDTO,
+    query?: {
+      /** @format int32 */
+      OrgGuorpId?: number;
+      EmissionFactorLibraryName?: string;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<void, any>({
+      path: `/api/SmEmissionFactorLibraries/${ogName}/${vCode}`,
+      method: "PUT",
+      query: query,
+      body: data,
+      type: ContentType.Json,
+      ...params,
+    });
+  /**
+   * No description
+   *
+   * @tags SmEmissionFactorLibraries
+   * @name SmEmissionFactorLibrariesDelete2
+   * @request DELETE:/api/SmEmissionFactorLibraries/{OGName}/{VCode}
+   * @originalName smEmissionFactorLibrariesDelete
+   * @duplicate
+   */
+  smEmissionFactorLibrariesDelete2 = (ogName: string, vCode: string, params: RequestParams = {}) =>
+    this.request<void, any>({
+      path: `/api/SmEmissionFactorLibraries/${ogName}/${vCode}`,
       method: "DELETE",
       ...params,
     });

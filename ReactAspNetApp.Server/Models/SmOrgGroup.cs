@@ -51,11 +51,13 @@ public partial class SmOrgGroup
 
     public int? ImportSeqnNo { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public virtual ICollection<BdcArVersion> BdcArVersions { get; set; } = new List<BdcArVersion>();
 
     public virtual ICollection<BdcFacility> BdcFacilities { get; set; } = new List<BdcFacility>();
+
+    public virtual ICollection<BdcGreenhouseGa> BdcGreenhouseGas { get; set; } = new List<BdcGreenhouseGa>();
 
     public virtual ICollection<BdcOrgGroupProfile> BdcOrgGroupProfiles { get; set; } = new List<BdcOrgGroupProfile>();
 
@@ -65,6 +67,12 @@ public partial class SmOrgGroup
 
     public virtual ICollection<BdcReportingYear> BdcReportingYears { get; set; } = new List<BdcReportingYear>();
 
+    public virtual ICollection<BdcTransportationDistance> BdcTransportationDistances { get; set; } = new List<BdcTransportationDistance>();
+
+    public virtual ICollection<BdcUnitLibrary> BdcUnitLibraries { get; set; } = new List<BdcUnitLibrary>();
+
+    public virtual ICollection<BdcUnit> BdcUnits { get; set; } = new List<BdcUnit>();
+
     public virtual SmCity City { get; set; } = null!;
 
     public virtual SmCountry Country { get; set; } = null!;
@@ -73,5 +81,9 @@ public partial class SmOrgGroup
 
     public virtual SmUser ModifiedBy { get; set; } = null!;
 
-    public virtual SmUser User { get; set; } = null!;
+    public virtual ICollection<SmEmissionFactorLibrary> SmEmissionFactorLibraries { get; set; } = new List<SmEmissionFactorLibrary>();
+
+    public virtual ICollection<SmEmissionFactor> SmEmissionFactors { get; set; } = new List<SmEmissionFactor>();
+
+    public virtual ICollection<SmRole> SmRoles { get; set; } = new List<SmRole>();
 }

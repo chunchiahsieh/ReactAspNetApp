@@ -70,7 +70,7 @@ namespace ReactAspNetApp.Server.Controllers
                 SmCity[] smCities = _mapper.Map<SmCity[]>(rows);
                 foreach (var row in smCities)
                 {
-                    row.SystemStatus = System_status.Active.ToString();
+                    row.SystemStatus = Convert.ToInt32(System_status.Active);
                     row.ModifiedById = row.CreateById;
                     row.ModifiedOn = DateTime.UtcNow;
                 }
@@ -135,7 +135,7 @@ namespace ReactAspNetApp.Server.Controllers
         public async Task<ActionResult<SmCity>> PostSmCity(SmCityCreateDTO smCityDTO)
         {
             SmCity smCity = _mapper.Map<SmCity>(smCityDTO);
-            smCity.SystemStatus = System_status.Active.ToString();
+            smCity.SystemStatus = Convert.ToInt32(System_status.Active.ToString());
             smCity.ModifiedById = smCity.CreateById;
             smCity.ModifiedOn = DateTime.UtcNow;
             _context.SmCities.Add(smCity);
@@ -161,7 +161,7 @@ namespace ReactAspNetApp.Server.Controllers
             {
                 return NotFound();
             }
-            smCity.SystemStatus = System_status.Inactive.ToString();
+            smCity.SystemStatus = Convert.ToInt32(System_status.Inactive.ToString());
             
             await _context.SaveChangesAsync();
 

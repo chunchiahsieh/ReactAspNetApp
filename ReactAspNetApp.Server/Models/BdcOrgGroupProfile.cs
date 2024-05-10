@@ -41,7 +41,7 @@ public partial class BdcOrgGroupProfile
 
     public int? ImportSeqnNo { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public virtual SmCity City { get; set; } = null!;
 

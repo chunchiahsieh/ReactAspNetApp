@@ -19,6 +19,8 @@ public partial class SmCountry
 
     public string SystemStatus { get; set; } = null!;
 
+    public string? ThreeDigitalCode { get; set; }
+
     public virtual ICollection<BdcFacility> BdcFacilities { get; set; } = new List<BdcFacility>();
 
     public virtual ICollection<BdcOrgGroupProfile> BdcOrgGroupProfiles { get; set; } = new List<BdcOrgGroupProfile>();
@@ -29,6 +31,7 @@ public partial class SmCountry
 
     public virtual SmUser ModifiedBy { get; set; } = null!;
 
+    public virtual ICollection<SmEmissionFactor> SmEmissionFactors { get; set; } = new List<SmEmissionFactor>();
+
     public virtual ICollection<SmOrgGroup> SmOrgGroups { get; set; } = new List<SmOrgGroup>();
-    public string ThreeDigitalCode { get; internal set; } = null!;
 }

@@ -23,7 +23,9 @@ public partial class SmChoice
 
     public int? ImportSeqnNo { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
+
+    public int CanonicalChoiceId { get; set; }
 
     public virtual SmUser CreateBy { get; set; } = null!;
 

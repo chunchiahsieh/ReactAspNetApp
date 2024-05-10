@@ -45,7 +45,7 @@ public partial class BdcOrgUnit
 
     public int? ImportSeqnNo { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public string? Description { get; set; }
 

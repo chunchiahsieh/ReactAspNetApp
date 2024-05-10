@@ -251,7 +251,7 @@ const localeCommon = {
 
   
  OGHG_Emission_Factor: {
-  Emission_factor_library_ID:"Emission factor library",
+    Emission_factor_library_ID:"Emission factor library",
     Description:"Description",
     Emission_factor_source:"Emission factor source",
     Emission_factor_source_Remarks:"Emission factor source Remarks",

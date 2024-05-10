@@ -38,3 +38,5 @@ export {EFM_EFL_ViewForm} from './EFM_EFL_ViewForm';
 export {EFM_EFL_List} from './EFM_EFL_List';
 export {EFM_EF_ViewForm} from './EFM_EF_ViewForm';
 export {EFM_EFL_EditForm} from './EFM_EFL_EditForm';
+export {EFM_EF} from './EFM_EF';
+export {EFM_EFL} from './EFM_EFL';

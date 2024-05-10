@@ -27,8 +27,8 @@ namespace ReactAspNetApp.Server.Controllers
             try
             {
                 var list = await _context.SmOrgGroups
-                    .Where(x => x.SystemStatus == ((int)System_status.Active).ToString())
-                    .Include(x => x.User)
+                    .Where(x => x.SystemStatus == ((int)System_status.Active))
+                   // .Include(x => x.User)
                     .ToListAsync();
                 var response = _mapper.Map<IEnumerable<SmOrgGroupReadDTO>>(list);
                 response = response
@@ -100,7 +100,7 @@ namespace ReactAspNetApp.Server.Controllers
                 SmOrgGroup[] smOrgGroups = _mapper.Map<SmOrgGroup[]>(rows);
                 foreach (var row in smOrgGroups)
                 {
-                    row.SystemStatus = ((int)System_status.Active).ToString();
+                    row.SystemStatus = ((int)System_status.Active);
                     row.ModifiedById = row.CreateById;
                     row.ModifiedOn = DateTime.UtcNow;
                 }
@@ -136,7 +136,7 @@ namespace ReactAspNetApp.Server.Controllers
             try
             {
                 SmOrgGroup? smOrgGroup = await _context.SmOrgGroups
-                .Include(x => x.User)
+               // .Include(x => x.User)
                 .Where(x => x.OrgGroupName == OGName && x.VendorCode == VCode)
                 .FirstOrDefaultAsync();
                 if (smOrgGroup == null)
@@ -175,17 +175,17 @@ namespace ReactAspNetApp.Server.Controllers
             try
             {
                 SmOrgGroup smOrgGroup = _mapper.Map<SmOrgGroup>(smOrgGroupDTO);
-                smOrgGroup.User.ModifiedOn = DateTime.UtcNow;
+               /* smOrgGroup.User.ModifiedOn = DateTime.UtcNow;
                 smOrgGroup.User.Password = "generate by itself"; // TODO TODO TODO
-                smOrgGroup.User.SystemStatus = ((int)System_status.Active).ToString();
-                smOrgGroup.SystemStatus = ((int)System_status.Active).ToString();
+                smOrgGroup.User.SystemStatus = ((int)System_status.Active).ToString();*/
+                smOrgGroup.SystemStatus = ((int)System_status.Active);
                 smOrgGroup.ModifiedById = smOrgGroup.CreateById;
                 smOrgGroup.ModifiedOn = DateTime.UtcNow;
                 _context.SmOrgGroups.Add(smOrgGroup);
                 await _context.SaveChangesAsync();
                 // Update the User table with the OrgGroupId
-                smOrgGroup.User.OrgGroupId = smOrgGroup.OrgGroupId;
-                _context.Entry(smOrgGroup.User).State = EntityState.Modified;
+            //    smOrgGroup.User.OrgGroupId = smOrgGroup.OrgGroupId;
+              //  _context.Entry(smOrgGroup.User).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 
                 await transaction.CommitAsync();
@@ -209,7 +209,7 @@ namespace ReactAspNetApp.Server.Controllers
             {
                 return NotFound();
             }
-            smOrgGroup.SystemStatus = ((int)System_status.Inactive).ToString();
+            smOrgGroup.SystemStatus = ((int)System_status.Inactive);
 
             await _context.SaveChangesAsync();
 
@@ -229,7 +229,7 @@ namespace ReactAspNetApp.Server.Controllers
                 }
                 foreach (var smOrgGroup in rows2Delete)
                 {
-                    smOrgGroup.SystemStatus = ((int)System_status.Inactive).ToString();
+                    smOrgGroup.SystemStatus = ((int)System_status.Inactive);
                 }
                 await _context.SaveChangesAsync();
 

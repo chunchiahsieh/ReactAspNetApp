@@ -31,10 +31,6 @@ public partial class SmUser
 
     public string? Remark { get; set; }
 
-    public string Password { get; set; } = null!;
-
-    public string? RolePermission { get; set; }
-
     public bool IsOrgAdmin { get; set; }
 
     public bool IsSuperAdmin { get; set; }
@@ -53,7 +49,7 @@ public partial class SmUser
 
     public int? ImportSeqnNo { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public virtual ICollection<BdcArVersion> BdcArVersionCreateBies { get; set; } = new List<BdcArVersion>();
 
@@ -62,6 +58,10 @@ public partial class SmUser
     public virtual ICollection<BdcFacility> BdcFacilityCreateBies { get; set; } = new List<BdcFacility>();
 
     public virtual ICollection<BdcFacility> BdcFacilityModifiedBies { get; set; } = new List<BdcFacility>();
+
+    public virtual ICollection<BdcGreenhouseGa> BdcGreenhouseGaCreatedBies { get; set; } = new List<BdcGreenhouseGa>();
+
+    public virtual ICollection<BdcGreenhouseGa> BdcGreenhouseGaModifiedBies { get; set; } = new List<BdcGreenhouseGa>();
 
     public virtual ICollection<BdcOrgGroupProfile> BdcOrgGroupProfileCreateBies { get; set; } = new List<BdcOrgGroupProfile>();
 
@@ -79,6 +79,18 @@ public partial class SmUser
 
     public virtual ICollection<BdcReportingYear> BdcReportingYearModifiedBies { get; set; } = new List<BdcReportingYear>();
 
+    public virtual ICollection<BdcTransportationDistance> BdcTransportationDistanceCreatedBies { get; set; } = new List<BdcTransportationDistance>();
+
+    public virtual ICollection<BdcTransportationDistance> BdcTransportationDistanceModifiedBies { get; set; } = new List<BdcTransportationDistance>();
+
+    public virtual ICollection<BdcUnit> BdcUnitCreatedBies { get; set; } = new List<BdcUnit>();
+
+    public virtual ICollection<BdcUnitLibrary> BdcUnitLibraryCreatedBies { get; set; } = new List<BdcUnitLibrary>();
+
+    public virtual ICollection<BdcUnitLibrary> BdcUnitLibraryModifiedBies { get; set; } = new List<BdcUnitLibrary>();
+
+    public virtual ICollection<BdcUnit> BdcUnitModifiedBies { get; set; } = new List<BdcUnit>();
+
     public virtual ICollection<SmChoice> SmChoiceCreateBies { get; set; } = new List<SmChoice>();
 
     public virtual ICollection<SmChoice> SmChoiceModifiedBies { get; set; } = new List<SmChoice>();
@@ -91,6 +103,14 @@ public partial class SmUser
 
     public virtual ICollection<SmCountry> SmCountryModifiedBies { get; set; } = new List<SmCountry>();
 
+    public virtual ICollection<SmEmissionFactor> SmEmissionFactorCreateBies { get; set; } = new List<SmEmissionFactor>();
+
+    public virtual ICollection<SmEmissionFactorLibrary> SmEmissionFactorLibraryCreateBies { get; set; } = new List<SmEmissionFactorLibrary>();
+
+    public virtual ICollection<SmEmissionFactorLibrary> SmEmissionFactorLibraryModifiedBies { get; set; } = new List<SmEmissionFactorLibrary>();
+
+    public virtual ICollection<SmEmissionFactor> SmEmissionFactorModifiedBies { get; set; } = new List<SmEmissionFactor>();
+
     public virtual ICollection<SmLanguage> SmLanguageCreateBies { get; set; } = new List<SmLanguage>();
 
     public virtual ICollection<SmLanguage> SmLanguageModifiedBies { get; set; } = new List<SmLanguage>();
@@ -99,5 +119,11 @@ public partial class SmUser
 
     public virtual ICollection<SmOrgGroup> SmOrgGroupModifiedBies { get; set; } = new List<SmOrgGroup>();
 
-    public virtual ICollection<SmOrgGroup> SmOrgGroupUsers { get; set; } = new List<SmOrgGroup>();
+    public virtual ICollection<SmPermission> SmPermissionCreateBies { get; set; } = new List<SmPermission>();
+
+    public virtual ICollection<SmPermission> SmPermissionModifiedBies { get; set; } = new List<SmPermission>();
+
+    public virtual ICollection<SmRole> SmRoleCreateBies { get; set; } = new List<SmRole>();
+
+    public virtual ICollection<SmRole> SmRoleModifiedBies { get; set; } = new List<SmRole>();
 }

@@ -17,7 +17,7 @@ public partial class SmCity
 
     public DateTime ModifiedOn { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public virtual ICollection<BdcFacility> BdcFacilities { get; set; } = new List<BdcFacility>();
 

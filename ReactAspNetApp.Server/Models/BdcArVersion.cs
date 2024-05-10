@@ -31,9 +31,11 @@ public partial class BdcArVersion
 
     public int? ImportSeqnNo { get; set; }
 
-    public string ConfiguartionType { get; set; } = null!;
+    public int ConfiguartionType { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
+
+    public virtual ICollection<BdcGreenhouseGa> BdcGreenhouseGas { get; set; } = new List<BdcGreenhouseGa>();
 
     public virtual SmUser CreateBy { get; set; } = null!;
 

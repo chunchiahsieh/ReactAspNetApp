@@ -27,7 +27,7 @@ public partial class SmTextContent
 
     public DateTime ModifiedOn { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public string? Name { get; set; }
 }

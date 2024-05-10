@@ -1,10 +1,9 @@
 import {
     ESGTableOneHeaderRow
   } from "components/Base/Data Display/ESGTable";
-  import { OGHG_Emission_Factor_Library_ReadDTO } from "API_Generated/data-contracts";
-  import _ from "lodash";
+
   import common from "styles/locales/common";
-  import { AvailableLang, i18nFront2Back } from "i18next_main";
+
   
   export interface Entity {
     emission_factor_library_name: string;

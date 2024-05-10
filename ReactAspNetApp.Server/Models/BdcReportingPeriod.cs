@@ -15,7 +15,7 @@ public partial class BdcReportingPeriod
 
     public DateOnly EndDate { get; set; }
 
-    public string PeriodStatus { get; set; } = null!;
+    public int PeriodStatus { get; set; }
 
     public int CreateById { get; set; }
 
@@ -27,7 +27,7 @@ public partial class BdcReportingPeriod
 
     public int? ImportSeqnNo { get; set; }
 
-    public string ConfigurationType { get; set; } = null!;
+    public int ConfigurationType { get; set; }
 
     public virtual SmUser CreateBy { get; set; } = null!;
 

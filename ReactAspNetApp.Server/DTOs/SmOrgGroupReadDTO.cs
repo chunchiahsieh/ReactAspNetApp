@@ -71,7 +71,7 @@ public class SmOrgGroup2ReadDTOProfile : Profile
     {
 
         CreateMap<SmOrgGroup, SmOrgGroupReadDTO>()
-        .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
+        //.ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User))
         .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
     }
 }

@@ -1,10 +1,10 @@
 import {
   ESGTableOneHeaderRow
 } from "components/Base/Data Display/ESGTable";
-//import { SmOrgGroupReadDTO } from "API_Generated/data-contracts";
+import { SmEmissionFactorLibraryReadDTO } from "API_Generated/data-contracts";
 import _ from "lodash";
 import common from "styles/locales/common";
-//import { AvailableLang, i18nFront2Back } from "i18next_main";
+import { AvailableLang, i18nFront2Back } from "i18next_main";
 
 export interface Entity {
   Emission_factor_library_ID: string;
@@ -49,12 +49,13 @@ export interface Entity {
   Modified_By: number; // TODO
   Modified_On: string; // Check
 }
-/*
-export function convertToEFM_EF_4List(
-  data: SmOrgGroupReadDTO,
+
+export function convertToList(
+  //data: SmOrgGroupReadDTO,
+  data:SmEmissionFactorLibraryReadDTO,
   lang: AvailableLang
-): EFM_EF_4List {
-  const result: EFM_EF_4List = {    
+): Entity {
+  const result: Entity = {    
     Emission_factor_library_ID: data.orgGroupName ?? "",
     Description: data.orgGroupName ?? "",
     Emission_factor_source: data.orgGroupName ?? "",
@@ -92,13 +93,13 @@ export function convertToEFM_EF_4List(
     Biogenic_CO2_factor: data.orgGroupName ?? "",
     Biogenic_CO2_factor_Unit_ID: data.orgGroupName ?? "",
     
-    Created_By: data.Created_By ?? 0,
-    Created_On: data.Created_On ?? "",
-    Modified_By: data.Modified_By ?? 0,
-    Modified_On: data.Modified_On ?? "",
+    Created_By: data.createById ?? 0,
+    Created_On: data.createOn ?? "",
+    Modified_By: data.modifiedById ?? 0,
+    Modified_On: data.modifiedOn ?? "",
   };
   return result;
-}*/
+}
 
 export const header_List: (Omit<ESGTableOneHeaderRow, "keyName"> & {
   keyName: keyof Entity;

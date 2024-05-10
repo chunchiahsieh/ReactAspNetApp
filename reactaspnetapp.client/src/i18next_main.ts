@@ -10,6 +10,7 @@ const nsNode = {
   common: _.clone(nNode),
   CPNTree: _.clone(nNode),
   sm: _.clone(nNode),
+  EFMEFL: _.clone(nNode),  
 }; // Definition
 const resources = { en: _.cloneDeep(nsNode), zh: _.cloneDeep(nsNode) }; // Definition
 export type AvailableLang = keyof typeof resources;

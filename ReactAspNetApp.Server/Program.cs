@@ -24,6 +24,10 @@ builder.Services.AddAutoMapper(
     typeof(SmOrgGroup2ReadDTOProfile),
     typeof(UpdateDTO2SmUserProfile),
     typeof(SmTextContent2UseProfile)
+
+    //typeof(CreateDTO2SmEmissionFactorLibraryProfile),
+    //typeof(SmEmissionFactorLibrary2ReadDTOProfile),
+    //typeof(UpdateDTO2SmEmissionFactorLibraryProfile)
 );
 
 

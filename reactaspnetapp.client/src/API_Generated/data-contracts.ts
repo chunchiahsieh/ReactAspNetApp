@@ -44,6 +44,7 @@ export interface BdcArVersion {
   importSeqnNo?: number | null;
   configuartionType?: string | null;
   systemStatus?: string | null;
+  bdcGreenhouseGas?: BdcGreenhouseGa[] | null;
   createBy?: SmUser;
   modifiedBy?: SmUser;
   orgGroup?: SmOrgGroup;
@@ -86,6 +87,42 @@ export interface BdcFacility {
   modifiedBy?: SmUser;
   orgGroup?: SmOrgGroup;
   orgUnit?: BdcOrgUnit;
+}
+
+export interface BdcGreenhouseGa {
+  /** @format int32 */
+  greenhouseGasId?: number;
+  /** @format int32 */
+  orgGroupId?: number;
+  /** @format int32 */
+  arVersionId?: number;
+  greenhouseGasName?: string | null;
+  ghgCategory?: string | null;
+  montrealProtocolStatus?: string | null;
+  isRegrigerantType?: boolean;
+  /** @format double */
+  gwpFactor?: number;
+  docRef?: string | null;
+  originCorrelationId?: string | null;
+  year?: string | null;
+  version?: string | null;
+  remark?: string | null;
+  /** @format int32 */
+  createdById?: number;
+  /** @format date-time */
+  createdOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  configurationType?: string | null;
+  systemStatus?: string | null;
+  arVersion?: BdcArVersion;
+  createdBy?: SmUser;
+  modifiedBy?: SmUser;
+  orgGroup?: SmOrgGroup;
 }
 
 export interface BdcOrgGroupProfile {
@@ -224,6 +261,63 @@ export interface BdcReportingYear {
   orgGroup?: SmOrgGroup;
 }
 
+export interface BdcUnit {
+  /** @format int32 */
+  unitId?: number;
+  /** @format int32 */
+  orgGroupId?: number;
+  unitName?: string | null;
+  /** @format int32 */
+  unitLibraryId?: number;
+  /** @format double */
+  conversionFactor?: number;
+  isBaseUnit?: boolean | null;
+  /** @format int32 */
+  createdById?: number;
+  /** @format date-time */
+  createdOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  configurationType?: string | null;
+  systemStatus?: string | null;
+  bdcUnitLibraries?: BdcUnitLibrary[] | null;
+  createdBy?: SmUser;
+  modifiedBy?: SmUser;
+  orgGroup?: SmOrgGroup;
+  unitLibrary?: BdcUnitLibrary;
+}
+
+export interface BdcUnitLibrary {
+  /** @format int32 */
+  unitLibraryId?: number;
+  /** @format int32 */
+  orgGroupId?: number;
+  unitLibraryName?: string | null;
+  /** @format int32 */
+  baseUnitId?: number | null;
+  /** @format int32 */
+  createdById?: number;
+  /** @format date-time */
+  createdOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  configurationType?: string | null;
+  systemStatus?: string | null;
+  baseUnit?: BdcUnit;
+  bdcUnits?: BdcUnit[] | null;
+  createdBy?: SmUser;
+  modifiedBy?: SmUser;
+  orgGroup?: SmOrgGroup;
+}
+
 /** @format int32 */
 export enum ColumnTypeForSearch {
   Value0 = 0,
@@ -325,13 +419,13 @@ export interface SmCountry {
   /** @format date-time */
   modifiedOn?: string;
   systemStatus?: string | null;
+  threeDigitalCode?: string | null;
   bdcFacilities?: BdcFacility[] | null;
   bdcOrgGroupProfiles?: BdcOrgGroupProfile[] | null;
   bdcOrgUnits?: BdcOrgUnit[] | null;
   createBy?: SmUser;
   modifiedBy?: SmUser;
   smOrgGroups?: SmOrgGroup[] | null;
-  threeDigitalCode?: string | null;
 }
 
 export interface SmCountryCreateDTO {
@@ -349,6 +443,132 @@ export interface SmCountryUpdateDTO {
   /** @format date-time */
   modifiedOn?: string;
   systemStatus?: string | null;
+}
+
+export interface SmEmissionFactorLibrary {
+  /** @format int32 */
+  emissionFactorLibraryId?: number;
+  /** @format int32 */
+  orgGroupId?: number;
+  emissionFactorLibraryName?: string | null;
+  libraryType?: string | null;
+  docRef?: string | null;
+  lastName?: string | null;
+  originCorrelationId?: string | null;
+  year?: string | null;
+  version?: string | null;
+  /** @format int32 */
+  createById?: number;
+  /** @format date-time */
+  createOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  configurationType?: string | null;
+  systemStatus?: string | null;
+  createBy?: SmUser;
+  modifiedBy?: SmUser;
+  user?: SmUser;
+}
+
+export interface SmEmissionFactorLibraryCreateDTO {
+  /** @format int32 */
+  emissionFactorLibraryId?: number;
+  /** @format int32 */
+  orgGuorpId?: number;
+  emissionFactorLibraryName?: string | null;
+  libraryType?: string | null;
+  docRef?: string | null;
+  lastName?: string | null;
+  originCorrelationId?: string | null;
+  year?: string | null;
+  version?: string | null;
+  /** @format int32 */
+  createById?: number;
+  /** @format date-time */
+  createOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  configurationType?: string | null;
+  systemStatus?: string | null;
+  user?: SmUserRawDTO;
+}
+
+export interface SmEmissionFactorLibraryReadDTO {
+  /** @format int32 */
+  orgGroupId?: number;
+  orgGroupName?: string | null;
+  vendorCode?: string | null;
+  website?: string | null;
+  businessRegistrationNo?: string | null;
+  stockIdentificationNo?: string | null;
+  /** @format int32 */
+  countryId?: number;
+  zipPostalCode?: string | null;
+  /** @format int32 */
+  cityId?: number;
+  countryI18ns?: SmTextContentUseDTO[] | null;
+  cityI18ns?: SmTextContentUseDTO[] | null;
+  street?: string | null;
+  /** @format double */
+  latitude?: number | null;
+  /** @format double */
+  longitude?: number | null;
+  remark?: string | null;
+  /** @format int32 */
+  userId?: number;
+  bdcPermission?: boolean;
+  oghgPermission?: boolean;
+  pcfPermission?: boolean;
+  spmPermission?: boolean;
+  /** @format int32 */
+  createById?: number;
+  /** @format date-time */
+  createOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  systemStatus?: string | null;
+  city?: SmCity;
+  country?: SmCountry;
+  user?: SmUserRawDTO;
+}
+
+export interface SmEmissionFactorLibraryUpdateDTO {
+  /** @format int32 */
+  emissionFactorLibraryId?: number;
+  /** @format int32 */
+  orgGuorpId?: number;
+  emissionFactorLibraryName?: string | null;
+  libraryType?: string | null;
+  docRef?: string | null;
+  lastName?: string | null;
+  originCorrelationId?: string | null;
+  year?: string | null;
+  version?: string | null;
+  /** @format int32 */
+  createById?: number;
+  /** @format date-time */
+  createOn?: string;
+  /** @format int32 */
+  modifiedById?: number | null;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  configurationType?: string | null;
+  systemStatus?: string | null;
+  user?: SmUserRawDTO;
 }
 
 export interface SmLanguage {
@@ -405,15 +625,20 @@ export interface SmOrgGroup {
   systemStatus?: string | null;
   bdcArVersions?: BdcArVersion[] | null;
   bdcFacilities?: BdcFacility[] | null;
+  bdcGreenhouseGas?: BdcGreenhouseGa[] | null;
   bdcOrgGroupProfiles?: BdcOrgGroupProfile[] | null;
   bdcOrgUnits?: BdcOrgUnit[] | null;
   bdcReportingPeriods?: BdcReportingPeriod[] | null;
   bdcReportingYears?: BdcReportingYear[] | null;
+  bdcUnitLibraries?: BdcUnitLibrary[] | null;
+  bdcUnits?: BdcUnit[] | null;
   city?: SmCity;
   country?: SmCountry;
   createBy?: SmUser;
   modifiedBy?: SmUser;
   user?: SmUser;
+  smPermissions?: SmPermission[] | null;
+  smRoles?: SmRole[] | null;
 }
 
 export interface SmOrgGroupCreateDTO {
@@ -524,6 +749,54 @@ export interface SmOrgGroupUpdateDTO {
   user?: SmUserRawDTO;
 }
 
+export interface SmPermission {
+  /** @format int32 */
+  permissionId?: number;
+  /** @format int32 */
+  orgGroupId?: number;
+  permissionName?: string | null;
+  group?: string | null;
+  /** @format int32 */
+  functionId?: number;
+  /** @format int32 */
+  createById?: number;
+  /** @format date-time */
+  createOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  systemStatus?: string | null;
+  createBy?: SmUser;
+  modifiedBy?: SmUser;
+  orgGroup?: SmOrgGroup;
+  user?: SmUser;
+}
+
+export interface SmRole {
+  /** @format int32 */
+  roleId?: number;
+  /** @format int32 */
+  orgGroupId?: number;
+  roleName?: string | null;
+  /** @format int32 */
+  createById?: number;
+  /** @format date-time */
+  createOn?: string;
+  /** @format int32 */
+  modifiedById?: number;
+  /** @format date-time */
+  modifiedOn?: string;
+  /** @format int32 */
+  importSeqnNo?: number | null;
+  systemStatus?: string | null;
+  createBy?: SmUser;
+  modifiedBy?: SmUser;
+  orgGroup?: SmOrgGroup;
+}
+
 export interface SmRolePermission {
   /** @format int32 */
   rolePermissionId?: number;
@@ -614,6 +887,8 @@ export interface SmUser {
   bdcArVersionModifiedBies?: BdcArVersion[] | null;
   bdcFacilityCreateBies?: BdcFacility[] | null;
   bdcFacilityModifiedBies?: BdcFacility[] | null;
+  bdcGreenhouseGaCreatedBies?: BdcGreenhouseGa[] | null;
+  bdcGreenhouseGaModifiedBies?: BdcGreenhouseGa[] | null;
   bdcOrgGroupProfileCreateBies?: BdcOrgGroupProfile[] | null;
   bdcOrgGroupProfileModifiedBies?: BdcOrgGroupProfile[] | null;
   bdcOrgUnitCreateBies?: BdcOrgUnit[] | null;
@@ -622,6 +897,10 @@ export interface SmUser {
   bdcReportingPeriodModifiedBies?: BdcReportingPeriod[] | null;
   bdcReportingYearCreateBies?: BdcReportingYear[] | null;
   bdcReportingYearModifiedBies?: BdcReportingYear[] | null;
+  bdcUnitCreatedBies?: BdcUnit[] | null;
+  bdcUnitLibraryCreatedBies?: BdcUnitLibrary[] | null;
+  bdcUnitLibraryModifiedBies?: BdcUnitLibrary[] | null;
+  bdcUnitModifiedBies?: BdcUnit[] | null;
   smChoiceCreateBies?: SmChoice[] | null;
   smChoiceModifiedBies?: SmChoice[] | null;
   smCityCreateBies?: SmCity[] | null;
@@ -632,7 +911,10 @@ export interface SmUser {
   smLanguageModifiedBies?: SmLanguage[] | null;
   smOrgGroupCreateBies?: SmOrgGroup[] | null;
   smOrgGroupModifiedBies?: SmOrgGroup[] | null;
-  smOrgGroupUsers?: SmOrgGroup[] | null;
+  smPermissionCreateBies?: SmPermission[] | null;
+  smPermissionModifiedBies?: SmPermission[] | null;
+  smRoleCreateBies?: SmRole[] | null;
+  smRoleModifiedBies?: SmRole[] | null;
 }
 
 export interface SmUserCreateDTO {
@@ -711,23 +993,4 @@ export interface WeatherForecast {
   /** @format int32 */
   temperatureF?: number;
   summary?: string | null;
-}
-
-export interface OGHG_Emission_Factor_Library_ReadDTO {
-  /** @format int32 */
-  emission_factor_library_name?: string;
-  Description?: string | null;
-  library_type?: string | null;
-  doc_ref?: string | null;
-  origin_correlation_id?: string | null;
-  year?: number | null;
-  version?: number | null;
-  /** @format int32 */
-  Created_By?: number;
-  /** @format date-time */
-  Created_On?: string;
-  /** @format int32 */
-  Modified_By?: number;
-  /** @format date-time */
-  Modified_On?: string;
 }

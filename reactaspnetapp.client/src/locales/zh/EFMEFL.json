@@ -1,0 +1,21 @@
+{
+    "vam": {
+        "emission_factor_library_name":"因子庫名稱",
+        "Description":"說明",
+        "library_type":"因子庫類型",
+        "doc_ref":"相關文件連結",
+        "origin_correlation_id":"關聯資料ID",
+        "year":"年份",
+        "version":"版本",
+       
+        "createById":"建立人",
+        "createOn":"建立時間",
+        "modifiedById":"最後修改人",
+        "modifiedOn":"最後修改時間",
+    
+        "listTitle":"排放因子庫",   
+        "createFormTitle":"建立排放因子庫",    
+        "editFormTitle":"編輯排放因子庫",
+        "vieFormTitle":"查看排放因子庫"
+    }
+  }
