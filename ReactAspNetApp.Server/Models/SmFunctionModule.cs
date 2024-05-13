@@ -11,15 +11,15 @@ public partial class SmFunctionModule
 
     public string Module { get; set; } = null!;
 
-    public int CreateById { get; set; }
+    public int CreatedById { get; set; }
 
-    public DateTime CreateOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public int ModifiedById { get; set; }
 
     public DateTime ModifiedOn { get; set; }
 
-    public int? ImportSeqnNo { get; set; }
+    public int? ImportSequenceNo { get; set; }
 
     public int SystemStatus { get; set; }
 }

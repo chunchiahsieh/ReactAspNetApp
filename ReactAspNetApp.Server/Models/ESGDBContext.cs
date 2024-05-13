@@ -31,6 +31,10 @@ public partial class ESGDBContext : DbContext
 
     public virtual DbSet<BdcArVersion> BdcArVersions { get; set; }
 
+    public virtual DbSet<BdcEmissionFactor> BdcEmissionFactors { get; set; }
+
+    public virtual DbSet<BdcEmissionFactorLibrary> BdcEmissionFactorLibraries { get; set; }
+
     public virtual DbSet<BdcFacility> BdcFacilities { get; set; }
 
     public virtual DbSet<BdcGreenhouseGa> BdcGreenhouseGas { get; set; }
@@ -49,6 +53,16 @@ public partial class ESGDBContext : DbContext
 
     public virtual DbSet<BdcUnitLibrary> BdcUnitLibraries { get; set; }
 
+    public virtual DbSet<KennyDummyEmployee> KennyDummyEmployees { get; set; }
+
+    public virtual DbSet<OghgEmployeeCommuting> OghgEmployeeCommutings { get; set; }
+
+    public virtual DbSet<OghgIndustrialProcess> OghgIndustrialProcesses { get; set; }
+
+    public virtual DbSet<OghgMobileCombustion> OghgMobileCombustions { get; set; }
+
+    public virtual DbSet<OghgStationaryCombustion> OghgStationaryCombustions { get; set; }
+
     public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
     public virtual DbSet<SmChoice> SmChoices { get; set; }
@@ -56,10 +70,6 @@ public partial class ESGDBContext : DbContext
     public virtual DbSet<SmCity> SmCities { get; set; }
 
     public virtual DbSet<SmCountry> SmCountries { get; set; }
-
-    public virtual DbSet<SmEmissionFactor> SmEmissionFactors { get; set; }
-
-    public virtual DbSet<SmEmissionFactorLibrary> SmEmissionFactorLibraries { get; set; }
 
     public virtual DbSet<SmFunctionModule> SmFunctionModules { get; set; }
 
@@ -195,14 +205,14 @@ public partial class ESGDBContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("ar_version_id");
             entity.Property(e => e.ConfiguartionType).HasColumnName("configuartion_type");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.DocRef)
                 .HasMaxLength(255)
                 .HasColumnName("doc_ref");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -221,9 +231,9 @@ public partial class ESGDBContext : DbContext
                 .HasMaxLength(4)
                 .HasColumnName("year");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.BdcArVersionCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcArVersionCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_ar_version_Tosm_user");
 
@@ -238,6 +248,243 @@ public partial class ESGDBContext : DbContext
                 .HasForeignKey(d => d.OrgGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_ar_version_Tosm_org_group");
+        });
+
+        modelBuilder.Entity<BdcEmissionFactor>(entity =>
+        {
+            entity.HasKey(e => new { e.OrgGroupId, e.EmissionFactorLibraryId, e.EmissionFactorName }).HasName("PK_sm_emission_factor");
+
+            entity.ToTable("bdc_emission_factor");
+
+            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.EmissionFactorLibraryId).HasColumnName("emission_factor_library_id");
+            entity.Property(e => e.EmissionFactorName)
+                .HasMaxLength(50)
+                .HasColumnName("emission_factor_name");
+            entity.Property(e => e.BiogenicCo2Factor)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("biogenic_co2_factor");
+            entity.Property(e => e.BiogenicCo2FactorId).HasColumnName("biogenic_co2_factor_id");
+            entity.Property(e => e.Ch4)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("ch4");
+            entity.Property(e => e.Ch4UnitId).HasColumnName("ch4_unit_id");
+            entity.Property(e => e.Co2)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("co2");
+            entity.Property(e => e.Co2UnitId).HasColumnName("co2_unit_id");
+            entity.Property(e => e.Co2e)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("co2e");
+            entity.Property(e => e.Co2eUnitId).HasColumnName("co2e_unit_id");
+            entity.Property(e => e.ConfigurationType).HasColumnName("configuration_type");
+            entity.Property(e => e.CountryId).HasColumnName("country_id");
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.Description)
+                .HasMaxLength(50)
+                .HasColumnName("description");
+            entity.Property(e => e.DocRef)
+                .HasMaxLength(255)
+                .HasColumnName("doc_ref");
+            entity.Property(e => e.EmissionFactorCategory)
+                .HasMaxLength(50)
+                .HasColumnName("emission_factor_category");
+            entity.Property(e => e.EmissionFactorId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("emission_factor_id");
+            entity.Property(e => e.EmissionFactorSource)
+                .HasMaxLength(50)
+                .HasColumnName("emission_factor_source");
+            entity.Property(e => e.EmissionFactorSourceRemark)
+                .HasMaxLength(255)
+                .HasColumnName("emission_factor_source_remark");
+            entity.Property(e => e.GhgsUnitId).HasColumnName("ghgs_unit_id");
+            entity.Property(e => e.Hfcs)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("hfcs");
+            entity.Property(e => e.HfcsUnitId).HasColumnName("hfcs_unit_id");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
+            entity.Property(e => e.IsBiofuel).HasColumnName("is_biofuel");
+            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
+            entity.Property(e => e.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("modified_on");
+            entity.Property(e => e.N2o)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("n2o");
+            entity.Property(e => e.N2oUnitId).HasColumnName("n2o_unit_id");
+            entity.Property(e => e.Nf3)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("nf3");
+            entity.Property(e => e.Nf3UnitId).HasColumnName("nf3_unit_id");
+            entity.Property(e => e.OriginCorrelationId)
+                .HasMaxLength(50)
+                .HasColumnName("origin_correlation_id");
+            entity.Property(e => e.OtherGhgs)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("other_ghgs");
+            entity.Property(e => e.Pcfs)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("pcfs");
+            entity.Property(e => e.PcfsUnitId).HasColumnName("pcfs_unit_id");
+            entity.Property(e => e.Remark)
+                .HasMaxLength(255)
+                .HasColumnName("remark");
+            entity.Property(e => e.Sf6)
+                .HasColumnType("decimal(18, 10)")
+                .HasColumnName("sf6");
+            entity.Property(e => e.Sf6UnitId).HasColumnName("sf6_unit_id");
+            entity.Property(e => e.SystemStatus).HasColumnName("system_status");
+            entity.Property(e => e.UnitId).HasColumnName("unit_id");
+            entity.Property(e => e.Version)
+                .HasMaxLength(10)
+                .HasColumnName("version");
+            entity.Property(e => e.Year)
+                .HasMaxLength(4)
+                .HasColumnName("year");
+
+            entity.HasOne(d => d.BiogenicCo2FactorNavigation).WithMany(p => p.BdcEmissionFactorBiogenicCo2FactorNavigations)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.BiogenicCo2FactorId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_biogenic_co2_factor_id");
+
+            entity.HasOne(d => d.Ch4Unit).WithMany(p => p.BdcEmissionFactorCh4Units)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.Ch4UnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_ch4_unit_id");
+
+            entity.HasOne(d => d.Co2Unit).WithMany(p => p.BdcEmissionFactorCo2Units)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.Co2UnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_co2_unit_id");
+
+            entity.HasOne(d => d.Co2eUnit).WithMany(p => p.BdcEmissionFactorCo2eUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.Co2eUnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_co2e_unit_id");
+
+            entity.HasOne(d => d.Country).WithMany(p => p.BdcEmissionFactors)
+                .HasPrincipalKey(p => p.CountryId)
+                .HasForeignKey(d => d.CountryId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_country");
+
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcEmissionFactorCreatedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.CreatedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_user1");
+
+            entity.HasOne(d => d.GhgsUnit).WithMany(p => p.BdcEmissionFactorGhgsUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.GhgsUnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_ghgs_unit_id");
+
+            entity.HasOne(d => d.HfcsUnit).WithMany(p => p.BdcEmissionFactorHfcsUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.HfcsUnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_hfcs_unit_id");
+
+            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.BdcEmissionFactorModifiedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.ModifiedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_user2");
+
+            entity.HasOne(d => d.N2oUnit).WithMany(p => p.BdcEmissionFactorN2oUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.N2oUnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_n2o_unit_id");
+
+            entity.HasOne(d => d.Nf3Unit).WithMany(p => p.BdcEmissionFactorNf3Units)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.Nf3UnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_nf3_unit_id");
+
+            entity.HasOne(d => d.OrgGroup).WithMany(p => p.BdcEmissionFactors)
+                .HasPrincipalKey(p => p.OrgGroupId)
+                .HasForeignKey(d => d.OrgGroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_org_group");
+
+            entity.HasOne(d => d.PcfsUnit).WithMany(p => p.BdcEmissionFactorPcfsUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.PcfsUnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_pcfs_unit_id");
+
+            entity.HasOne(d => d.Sf6Unit).WithMany(p => p.BdcEmissionFactorSf6Units)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.Sf6UnitId)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sf6_unit_id");
+
+            entity.HasOne(d => d.Unit).WithMany(p => p.BdcEmissionFactorUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.UnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_unit_id");
+        });
+
+        modelBuilder.Entity<BdcEmissionFactorLibrary>(entity =>
+        {
+            entity.HasKey(e => new { e.OrgGroupId, e.EmissionFactorLibraryName }).HasName("pk_sm_emission_factor_library");
+
+            entity.ToTable("bdc_emission_factor_library");
+
+            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.EmissionFactorLibraryName)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("emission_factor_library_name");
+            entity.Property(e => e.ConfigurationType).HasColumnName("configuration_type");
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.DocRef)
+                .HasMaxLength(255)
+                .HasColumnName("doc_ref");
+            entity.Property(e => e.EmissionFactorLibraryId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("emission_factor_library_id");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .HasColumnName("last_name");
+            entity.Property(e => e.LibraryType).HasColumnName("library_type");
+            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
+            entity.Property(e => e.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("modified_on");
+            entity.Property(e => e.OriginCorrelationId)
+                .HasMaxLength(50)
+                .HasColumnName("origin_correlation_id");
+            entity.Property(e => e.SystemStatus).HasColumnName("system_status");
+            entity.Property(e => e.Version)
+                .HasMaxLength(10)
+                .HasColumnName("version");
+            entity.Property(e => e.Year)
+                .HasMaxLength(4)
+                .HasColumnName("year");
+
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcEmissionFactorLibraryCreatedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.CreatedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_library_sm_user1");
+
+            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.BdcEmissionFactorLibraryModifiedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.ModifiedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_library_sm_user2");
+
+            entity.HasOne(d => d.OrgGroup).WithMany(p => p.BdcEmissionFactorLibraries)
+                .HasPrincipalKey(p => p.OrgGroupId)
+                .HasForeignKey(d => d.OrgGroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_sm_emission_factor_library_sm_org_group");
         });
 
         modelBuilder.Entity<BdcFacility>(entity =>
@@ -255,17 +502,17 @@ public partial class ESGDBContext : DbContext
                 .HasColumnName("facility_name");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.FacilityId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("facility_id");
             entity.Property(e => e.FacilityType)
                 .HasMaxLength(50)
                 .HasColumnName("facility_type");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.Latitude)
                 .HasColumnType("decimal(10, 8)")
                 .HasColumnName("latitude");
@@ -298,9 +545,9 @@ public partial class ESGDBContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_facility_Tosm_country");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.BdcFacilityCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcFacilityCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_facility_Tosm_user");
 
@@ -349,7 +596,7 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.GwpFactor)
                 .HasColumnType("decimal(8, 0)")
                 .HasColumnName("gwp_factor");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.IsRegrigerantType).HasColumnName("is_regrigerant_type");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
@@ -413,11 +660,11 @@ public partial class ESGDBContext : DbContext
                 .HasColumnName("business_registration_no");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.Latitude)
                 .HasColumnType("decimal(10, 8)")
                 .HasColumnName("latitude");
@@ -460,9 +707,9 @@ public partial class ESGDBContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_org_group_profile_Tosm_country");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.BdcOrgGroupProfileCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcOrgGroupProfileCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_org_group_profile_Tosm_user");
 
@@ -498,14 +745,14 @@ public partial class ESGDBContext : DbContext
                 .HasColumnName("business_registration_no");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.Latitude)
                 .HasColumnType("decimal(10, 8)")
                 .HasColumnName("latitude");
@@ -551,9 +798,9 @@ public partial class ESGDBContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_org_unit_Tosm_country");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.BdcOrgUnitCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcOrgUnitCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_org_unit_Tosm_user");
 
@@ -591,12 +838,12 @@ public partial class ESGDBContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("reporting_period_name");
             entity.Property(e => e.ConfigurationType).HasColumnName("configuration_type");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -604,9 +851,9 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.PeriodStatus).HasColumnName("period_status");
             entity.Property(e => e.StartDate).HasColumnName("start_date");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.BdcReportingPeriodCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcReportingPeriodCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_reporting_period_Tosm_user");
 
@@ -636,12 +883,12 @@ public partial class ESGDBContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("reporting_year_name");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -650,14 +897,11 @@ public partial class ESGDBContext : DbContext
                 .ValueGeneratedOnAdd()
                 .HasColumnName("reporting_year_id");
             entity.Property(e => e.StartDate).HasColumnName("start_date");
-            entity.Property(e => e.SystemStatus)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("system_status");
+            entity.Property(e => e.SystemStatus).HasColumnName("system_status");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.BdcReportingYearCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcReportingYearCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_reporting_year_Tosm_user");
 
@@ -676,14 +920,18 @@ public partial class ESGDBContext : DbContext
 
         modelBuilder.Entity<BdcTransportationDistance>(entity =>
         {
-            entity.HasKey(e => new { e.TransportationDistanceName, e.OrgGroupId }).HasName("PK__bdc_tran__22674864F0D1BD81");
+            entity.HasKey(e => new { e.OrgGroupId, e.ShipFrom, e.ShipTo, e.TransportModeId }).HasName("PK__bdc_tran__47731870F9F1B4B6");
 
             entity.ToTable("bdc_transportation_distance");
 
-            entity.Property(e => e.TransportationDistanceName)
-                .HasMaxLength(255)
-                .HasColumnName("transportation_distance_name");
             entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.ShipFrom)
+                .HasMaxLength(255)
+                .HasColumnName("ship_from");
+            entity.Property(e => e.ShipTo)
+                .HasMaxLength(255)
+                .HasColumnName("ship_to");
+            entity.Property(e => e.TransportModeId).HasColumnName("transport_mode_id");
             entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
             entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
@@ -700,40 +948,35 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("modified_on");
-            entity.Property(e => e.ShipFrom)
-                .HasMaxLength(255)
-                .HasColumnName("ship_from");
-            entity.Property(e => e.ShipTo)
-                .HasMaxLength(255)
-                .HasColumnName("ship_to");
-            entity.Property(e => e.TransportModeId).HasColumnName("transport_mode_id");
             entity.Property(e => e.TransportModeRemark)
                 .HasMaxLength(255)
                 .HasColumnName("transport_mode_remark");
-            entity.Property(e => e.TransportationDistanceId).HasColumnName("transportation_distance_id");
+            entity.Property(e => e.TransportationDistanceId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("transportation_distance_id");
 
             entity.HasOne(d => d.CreatedBy).WithMany(p => p.BdcTransportationDistanceCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
                 .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_bdc_transportation_distance_created_by");
+                .HasConstraintName("FK_bdc_transportation_distance_Tosm_user");
 
             entity.HasOne(d => d.DistanceUnit).WithMany(p => p.BdcTransportationDistances)
                 .HasPrincipalKey(p => p.UnitId)
                 .HasForeignKey(d => d.DistanceUnitId)
-                .HasConstraintName("FK_bdc_transportation_distance_distance_unit_id");
+                .HasConstraintName("FK_bdc_transportation_distance_Todistance_unit_id");
 
             entity.HasOne(d => d.ModifiedBy).WithMany(p => p.BdcTransportationDistanceModifiedBies)
                 .HasPrincipalKey(p => p.UserId)
                 .HasForeignKey(d => d.ModifiedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_bdc_transportation_distance_modified_by");
+                .HasConstraintName("FK_bdc_transportation_distance_Tosm_user1");
 
             entity.HasOne(d => d.OrgGroup).WithMany(p => p.BdcTransportationDistances)
                 .HasPrincipalKey(p => p.OrgGroupId)
                 .HasForeignKey(d => d.OrgGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_bdc_transportation_distance_org_group_id");
+                .HasConstraintName("FK_bdc_transportation_distance_Toorg_group_id");
         });
 
         modelBuilder.Entity<BdcUnit>(entity =>
@@ -757,7 +1000,7 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("created_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.IsBaseUnit)
                 .HasDefaultValue(false)
                 .HasColumnName("is_base_unit");
@@ -811,7 +1054,7 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("created_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -841,6 +1084,398 @@ public partial class ESGDBContext : DbContext
                 .HasForeignKey(d => d.OrgGroupId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_bdc_unit_library_sm_org_group");
+        });
+
+        modelBuilder.Entity<KennyDummyEmployee>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeId).HasName("PK__kenny_du__7AD04FF182B28D89");
+
+            entity.ToTable("kenny_dummy_employee");
+
+            entity.Property(e => e.EmployeeId)
+                .ValueGeneratedNever()
+                .HasColumnName("EmployeeID");
+            entity.Property(e => e.Email).HasMaxLength(100);
+            entity.Property(e => e.FirstName).HasMaxLength(50);
+            entity.Property(e => e.LastName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<OghgEmployeeCommuting>(entity =>
+        {
+            entity.HasKey(e => e.EmployeeCommutingId);
+
+            entity.ToTable("oghg_employee_commuting");
+
+            entity.Property(e => e.EmployeeCommutingId).HasColumnName("employee_commuting_id");
+            entity.Property(e => e.ActivityDataConfidenceType).HasColumnName("activity_data_confidence_type");
+            entity.Property(e => e.ActivityDataQualityType).HasColumnName("activity_data_quality_type");
+            entity.Property(e => e.CommuteTypeId).HasColumnName("commute_type_id");
+            entity.Property(e => e.CommuteTypeRemark)
+                .HasMaxLength(255)
+                .HasColumnName("commute_type_remark");
+            entity.Property(e => e.ConsumptionEndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_end_date");
+            entity.Property(e => e.ConsumptionStartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_start_date");
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.EmissionSourceId).HasColumnName("emission_source_id");
+            entity.Property(e => e.Evidence)
+                .HasMaxLength(255)
+                .HasColumnName("evidence");
+            entity.Property(e => e.EvidenceUrl)
+                .HasMaxLength(255)
+                .HasColumnName("evidence_url");
+            entity.Property(e => e.FacilityId).HasColumnName("facility_id");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
+            entity.Property(e => e.MethodologyType).HasColumnName("methodology_type");
+            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
+            entity.Property(e => e.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("modified_on");
+            entity.Property(e => e.NumberOfRespondent)
+                .HasColumnType("decimal(14, 4)")
+                .HasColumnName("number_of_respondent");
+            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.OrgUnitId).HasColumnName("org_unit_id");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.QuantityUnitId).HasColumnName("quantity_unit_id");
+            entity.Property(e => e.TotalNumberOfEmployee)
+                .HasColumnType("decimal(14, 4)")
+                .HasColumnName("total_number_of_employee");
+            entity.Property(e => e.TransactionDate)
+                .HasColumnType("datetime")
+                .HasColumnName("transaction_date");
+            entity.Property(e => e.Workdays)
+                .HasColumnType("decimal(14, 4)")
+                .HasColumnName("workdays");
+
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.OghgEmployeeCommutingCreatedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.CreatedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_employee_commuting_oghg_employee_commuting_sm_user1");
+
+            entity.HasOne(d => d.Facility).WithMany(p => p.OghgEmployeeCommutings)
+                .HasPrincipalKey(p => p.FacilityId)
+                .HasForeignKey(d => d.FacilityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_employee_commuting_oghg_employee_commuting_facility");
+
+            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.OghgEmployeeCommutingModifiedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.ModifiedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_employee_commuting_oghg_employee_commuting_sm_user2");
+
+            entity.HasOne(d => d.OrgGroup).WithMany(p => p.OghgEmployeeCommutings)
+                .HasPrincipalKey(p => p.OrgGroupId)
+                .HasForeignKey(d => d.OrgGroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_employee_commuting_oghg_employee_commuting_org_group");
+
+            entity.HasOne(d => d.QuantityUnit).WithMany(p => p.OghgEmployeeCommutings)
+                .HasPrincipalKey(p => p.OrgUnitId)
+                .HasForeignKey(d => d.QuantityUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_employee_commuting_quantity_unit_id");
+        });
+
+        modelBuilder.Entity<OghgIndustrialProcess>(entity =>
+        {
+            entity.HasKey(e => e.Name);
+
+            entity.ToTable("oghg_industrial_process");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.ActivityDataConfidenceType).HasColumnName("activity_data_confidence_type");
+            entity.Property(e => e.ActivityDataQualityType).HasColumnName("activity_data_quality_type");
+            entity.Property(e => e.ConsumptionEndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_end_date");
+            entity.Property(e => e.ConsumptionStartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_start_date");
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.EmissionSourceId).HasColumnName("emission_source_id");
+            entity.Property(e => e.Evidence)
+                .HasMaxLength(255)
+                .HasColumnName("evidence");
+            entity.Property(e => e.EvidenceUrl)
+                .HasMaxLength(255)
+                .HasColumnName("evidence_url");
+            entity.Property(e => e.FacilityId).HasColumnName("facility_id");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
+            entity.Property(e => e.IndustrialProcessEquipmentTypeId).HasColumnName("industrial_process_equipment_type_id");
+            entity.Property(e => e.IndustrialProcessEquipmentTypeRemark)
+                .HasMaxLength(255)
+                .HasColumnName("industrial_process_equipment_type_remark");
+            entity.Property(e => e.IndustrialProcessId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("industrial_process_id");
+            entity.Property(e => e.IndustrialProcessMaterialTypeId).HasColumnName("industrial_process_material_type_id");
+            entity.Property(e => e.IndustrialProcessMaterialTypeRemark)
+                .HasMaxLength(255)
+                .HasColumnName("industrial_process_material_type_remark");
+            entity.Property(e => e.IndustrialProcessTypeId).HasColumnName("industrial_process_type_id");
+            entity.Property(e => e.IndustrialProcessTypeRemark)
+                .HasMaxLength(255)
+                .HasColumnName("industrial_process_type_remark");
+            entity.Property(e => e.MethodologyType).HasColumnName("methodology_type");
+            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
+            entity.Property(e => e.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("modified_on");
+            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.OrgUnitId).HasColumnName("org_unit_id");
+            entity.Property(e => e.Quantity)
+                .HasColumnType("decimal(14, 4)")
+                .HasColumnName("quantity");
+            entity.Property(e => e.QuantityUnitId).HasColumnName("quantity_unit_id");
+            entity.Property(e => e.TransactionDate)
+                .HasColumnType("datetime")
+                .HasColumnName("transaction_date");
+
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.OghgIndustrialProcessCreatedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.CreatedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_industrial_process_sm_user1");
+
+            entity.HasOne(d => d.Facility).WithMany(p => p.OghgIndustrialProcesses)
+                .HasPrincipalKey(p => p.FacilityId)
+                .HasForeignKey(d => d.FacilityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_industrial_process_facility_id");
+
+            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.OghgIndustrialProcessModifiedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.ModifiedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_industrial_process_sm_user2");
+
+            entity.HasOne(d => d.OrgGroup).WithMany(p => p.OghgIndustrialProcesses)
+                .HasPrincipalKey(p => p.OrgGroupId)
+                .HasForeignKey(d => d.OrgGroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_industrial_process_org_group");
+
+            entity.HasOne(d => d.OrgUnit).WithMany(p => p.OghgIndustrialProcessOrgUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.OrgUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_industrial_process_unit_id");
+
+            entity.HasOne(d => d.QuantityUnit).WithMany(p => p.OghgIndustrialProcessQuantityUnits)
+                .HasPrincipalKey(p => p.UnitId)
+                .HasForeignKey(d => d.QuantityUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_industrial_process_quantity_unit_id");
+        });
+
+        modelBuilder.Entity<OghgMobileCombustion>(entity =>
+        {
+            entity.HasKey(e => e.Name);
+
+            entity.ToTable("oghg_mobile_combustion");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.ActivityDataConfidenceType).HasColumnName("activity_data_confidence_type");
+            entity.Property(e => e.ActivityDataQualityType).HasColumnName("activity_data_quality_type");
+            entity.Property(e => e.ConsumptionEndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_end_date");
+            entity.Property(e => e.ConsumptionStartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_start_date");
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.EmissionSourceId).HasColumnName("emission_source_id");
+            entity.Property(e => e.Evidence)
+                .HasMaxLength(255)
+                .HasColumnName("evidence");
+            entity.Property(e => e.EvidenceUrl)
+                .HasMaxLength(255)
+                .HasColumnName("evidence_url");
+            entity.Property(e => e.FacilityId).HasColumnName("facility_id");
+            entity.Property(e => e.FuelType).HasColumnName("fuel_type");
+            entity.Property(e => e.FuelTypeRemark)
+                .HasMaxLength(255)
+                .HasColumnName("fuel_type_remark");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
+            entity.Property(e => e.MethodologyType).HasColumnName("methodology_type");
+            entity.Property(e => e.MobileCombustionId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("mobile_combustion_id");
+            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
+            entity.Property(e => e.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("modified_on");
+            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.OrgUnitId).HasColumnName("org_unit_id");
+            entity.Property(e => e.Quantity)
+                .HasColumnType("decimal(14, 4)")
+                .HasColumnName("quantity");
+            entity.Property(e => e.QuantityUnitId).HasColumnName("quantity_unit_id");
+            entity.Property(e => e.TransactionDate)
+                .HasColumnType("datetime")
+                .HasColumnName("transaction_date");
+            entity.Property(e => e.Utilization).HasColumnName("utilization");
+            entity.Property(e => e.UtilizationRemark)
+                .HasMaxLength(255)
+                .HasColumnName("utilization_remark");
+
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.OghgMobileCombustionCreatedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.CreatedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_mobile_combustion_sm_user1");
+
+            entity.HasOne(d => d.Facility).WithMany(p => p.OghgMobileCombustions)
+                .HasPrincipalKey(p => p.FacilityId)
+                .HasForeignKey(d => d.FacilityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_mobile_combustion_sm_facility_id");
+
+            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.OghgMobileCombustionModifiedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.ModifiedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_mobile_combustion_sm_user2");
+
+            entity.HasOne(d => d.OrgGroup).WithMany(p => p.OghgMobileCombustions)
+                .HasPrincipalKey(p => p.OrgGroupId)
+                .HasForeignKey(d => d.OrgGroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_mobile_combustion_org_group");
+
+            entity.HasOne(d => d.OrgUnit).WithMany(p => p.OghgMobileCombustionOrgUnits)
+                .HasPrincipalKey(p => p.OrgUnitId)
+                .HasForeignKey(d => d.OrgUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_mobile_combustion_org_unit_id");
+
+            entity.HasOne(d => d.QuantityUnit).WithMany(p => p.OghgMobileCombustionQuantityUnits)
+                .HasPrincipalKey(p => p.OrgUnitId)
+                .HasForeignKey(d => d.QuantityUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_mobile_combustion_sm_quantity_unit_id");
+        });
+
+        modelBuilder.Entity<OghgStationaryCombustion>(entity =>
+        {
+            entity.HasKey(e => e.Name);
+
+            entity.ToTable("oghg_stationary_combustion");
+
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.ActivityDataConfidenceType).HasColumnName("activity_data_confidence_type");
+            entity.Property(e => e.ActivityDataQualityType).HasColumnName("activity_data_quality_type");
+            entity.Property(e => e.ConsumptionEndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_end_date");
+            entity.Property(e => e.ConsumptionStartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("consumption_start_date");
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("created_on");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
+            entity.Property(e => e.EmissionSourceId).HasColumnName("emission_source_id");
+            entity.Property(e => e.Evidence)
+                .HasMaxLength(255)
+                .HasColumnName("evidence");
+            entity.Property(e => e.EvidenceUrl)
+                .HasMaxLength(255)
+                .HasColumnName("evidence_url");
+            entity.Property(e => e.FacilityId).HasColumnName("facility_id");
+            entity.Property(e => e.FuelType).HasColumnName("fuel_type");
+            entity.Property(e => e.FuelTypeRemark).HasColumnName("fuel_type_remark");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
+            entity.Property(e => e.MethodologyType).HasColumnName("methodology_type");
+            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
+            entity.Property(e => e.ModifiedOn)
+                .HasColumnType("datetime")
+                .HasColumnName("modified_on");
+            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
+            entity.Property(e => e.OrgUnitId).HasColumnName("org_unit_id");
+            entity.Property(e => e.Quantity)
+                .HasColumnType("decimal(14, 4)")
+                .HasColumnName("quantity");
+            entity.Property(e => e.QuantityUnitId).HasColumnName("quantity_unit_id");
+            entity.Property(e => e.StationaryCombustionId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("stationary_combustion_id");
+            entity.Property(e => e.TransactionDate)
+                .HasColumnType("datetime")
+                .HasColumnName("transaction_date");
+            entity.Property(e => e.Utilization).HasColumnName("utilization");
+            entity.Property(e => e.UtilizationRemark)
+                .HasMaxLength(255)
+                .HasColumnName("utilization_remark");
+
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.OghgStationaryCombustionCreatedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.CreatedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_stationary_combustion_sm_user1");
+
+            entity.HasOne(d => d.Facility).WithMany(p => p.OghgStationaryCombustions)
+                .HasPrincipalKey(p => p.FacilityId)
+                .HasForeignKey(d => d.FacilityId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_stationary_combustion_sm_facility_id");
+
+            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.OghgStationaryCombustionModifiedBies)
+                .HasPrincipalKey(p => p.UserId)
+                .HasForeignKey(d => d.ModifiedById)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_stationary_combustion_sm_user2");
+
+            entity.HasOne(d => d.OrgGroup).WithMany(p => p.OghgStationaryCombustions)
+                .HasPrincipalKey(p => p.OrgGroupId)
+                .HasForeignKey(d => d.OrgGroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_stationary_combustion_org_group");
+
+            entity.HasOne(d => d.OrgUnit).WithMany(p => p.OghgStationaryCombustionOrgUnits)
+                .HasPrincipalKey(p => p.OrgUnitId)
+                .HasForeignKey(d => d.OrgUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_stationary_combustion_sm_org_unit_id");
+
+            entity.HasOne(d => d.QuantityUnit).WithMany(p => p.OghgStationaryCombustionQuantityUnits)
+                .HasPrincipalKey(p => p.OrgUnitId)
+                .HasForeignKey(d => d.QuantityUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_oghg_stationary_combustion_sm_quantity_unit_id");
         });
 
         modelBuilder.Entity<RefreshToken>(entity =>
@@ -889,20 +1524,20 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.ChoiceValue)
                 .HasMaxLength(255)
                 .HasColumnName("choice_value");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("modified_on");
             entity.Property(e => e.SystemStatus).HasColumnName("system_status");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmChoiceCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmChoiceCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_choice_Tosm_user");
 
@@ -923,19 +1558,19 @@ public partial class ESGDBContext : DbContext
 
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("modified_on");
             entity.Property(e => e.SystemStatus).HasColumnName("system_status");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmCityCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmCityCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_city_Tosm_user");
 
@@ -962,27 +1597,24 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.CountryId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("modified_on");
-            entity.Property(e => e.SystemStatus)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("system_status");
+            entity.Property(e => e.SystemStatus).HasColumnName("system_status");
             entity.Property(e => e.ThreeDigitalCode)
                 .HasMaxLength(3)
                 .IsUnicode(false)
                 .IsFixedLength()
                 .HasColumnName("three_digital_code");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmCountryCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmCountryCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_country_Tosm_user");
 
@@ -991,243 +1623,6 @@ public partial class ESGDBContext : DbContext
                 .HasForeignKey(d => d.ModifiedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_country_Tosm_user1");
-        });
-
-        modelBuilder.Entity<SmEmissionFactor>(entity =>
-        {
-            entity.HasKey(e => new { e.OrgGroupId, e.EmissionFactorLibraryId, e.EmissionFactorName });
-
-            entity.ToTable("sm_emission_factor");
-
-            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
-            entity.Property(e => e.EmissionFactorLibraryId).HasColumnName("emission_factor_library_id");
-            entity.Property(e => e.EmissionFactorName)
-                .HasMaxLength(50)
-                .HasColumnName("emission_factor_name");
-            entity.Property(e => e.BiogenicCo2Factor)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("biogenic_co2_factor");
-            entity.Property(e => e.BiogenicCo2FactorId).HasColumnName("biogenic_co2_factor_id");
-            entity.Property(e => e.Ch4)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("ch4");
-            entity.Property(e => e.Ch4UnitId).HasColumnName("ch4_unit_id");
-            entity.Property(e => e.Co2)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("co2");
-            entity.Property(e => e.Co2UnitId).HasColumnName("co2_unit_id");
-            entity.Property(e => e.Co2e)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("co2e");
-            entity.Property(e => e.Co2eUnitId).HasColumnName("co2e_unit_id");
-            entity.Property(e => e.ConfigurationType).HasColumnName("configuration_type");
-            entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
-                .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.Description)
-                .HasMaxLength(50)
-                .HasColumnName("description");
-            entity.Property(e => e.DocRef)
-                .HasMaxLength(255)
-                .HasColumnName("doc_ref");
-            entity.Property(e => e.EmissionFactorCategory)
-                .HasMaxLength(50)
-                .HasColumnName("emission_factor_category");
-            entity.Property(e => e.EmissionFactorId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("emission_factor_id");
-            entity.Property(e => e.EmissionFactorSource)
-                .HasMaxLength(50)
-                .HasColumnName("emission_factor_source");
-            entity.Property(e => e.EmissionFactorSourceRemark)
-                .HasMaxLength(255)
-                .HasColumnName("emission_factor_source_remark");
-            entity.Property(e => e.GhgsUnitId).HasColumnName("ghgs_unit_id");
-            entity.Property(e => e.Hfcs)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("hfcs");
-            entity.Property(e => e.HfcsUnitId).HasColumnName("hfcs_unit_id");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
-            entity.Property(e => e.IsBiofuel).HasColumnName("is_biofuel");
-            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
-            entity.Property(e => e.ModifiedOn)
-                .HasColumnType("datetime")
-                .HasColumnName("modified_on");
-            entity.Property(e => e.N2o)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("n2o");
-            entity.Property(e => e.N2oUnitId).HasColumnName("n2o_unit_id");
-            entity.Property(e => e.Nf3)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("nf3");
-            entity.Property(e => e.Nf3UnitId).HasColumnName("nf3_unit_id");
-            entity.Property(e => e.OriginCorrelationId)
-                .HasMaxLength(50)
-                .HasColumnName("origin_correlation_id");
-            entity.Property(e => e.OtherGhgs)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("other_ghgs");
-            entity.Property(e => e.Pcfs)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("pcfs");
-            entity.Property(e => e.PcfsUnitId).HasColumnName("pcfs_unit_id");
-            entity.Property(e => e.Remark)
-                .HasMaxLength(255)
-                .HasColumnName("remark");
-            entity.Property(e => e.Sf6)
-                .HasColumnType("decimal(18, 10)")
-                .HasColumnName("sf6");
-            entity.Property(e => e.Sf6UnitId).HasColumnName("sf6_unit_id");
-            entity.Property(e => e.SystemStatus).HasColumnName("system_status");
-            entity.Property(e => e.UnitId).HasColumnName("unit_id");
-            entity.Property(e => e.Version)
-                .HasMaxLength(10)
-                .HasColumnName("version");
-            entity.Property(e => e.Year)
-                .HasMaxLength(4)
-                .HasColumnName("year");
-
-            entity.HasOne(d => d.BiogenicCo2FactorNavigation).WithMany(p => p.SmEmissionFactorBiogenicCo2FactorNavigations)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.BiogenicCo2FactorId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_biogenic_co2_factor_id");
-
-            entity.HasOne(d => d.Ch4Unit).WithMany(p => p.SmEmissionFactorCh4Units)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.Ch4UnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_ch4_unit_id");
-
-            entity.HasOne(d => d.Co2Unit).WithMany(p => p.SmEmissionFactorCo2Units)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.Co2UnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_co2_unit_id");
-
-            entity.HasOne(d => d.Co2eUnit).WithMany(p => p.SmEmissionFactorCo2eUnits)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.Co2eUnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_co2e_unit_id");
-
-            entity.HasOne(d => d.Country).WithMany(p => p.SmEmissionFactors)
-                .HasPrincipalKey(p => p.CountryId)
-                .HasForeignKey(d => d.CountryId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_country");
-
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmEmissionFactorCreateBies)
-                .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_user1");
-
-            entity.HasOne(d => d.GhgsUnit).WithMany(p => p.SmEmissionFactorGhgsUnits)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.GhgsUnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_ghgs_unit_id");
-
-            entity.HasOne(d => d.HfcsUnit).WithMany(p => p.SmEmissionFactorHfcsUnits)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.HfcsUnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_hfcs_unit_id");
-
-            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.SmEmissionFactorModifiedBies)
-                .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.ModifiedById)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_user2");
-
-            entity.HasOne(d => d.N2oUnit).WithMany(p => p.SmEmissionFactorN2oUnits)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.N2oUnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_n2o_unit_id");
-
-            entity.HasOne(d => d.Nf3Unit).WithMany(p => p.SmEmissionFactorNf3Units)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.Nf3UnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_nf3_unit_id");
-
-            entity.HasOne(d => d.OrgGroup).WithMany(p => p.SmEmissionFactors)
-                .HasPrincipalKey(p => p.OrgGroupId)
-                .HasForeignKey(d => d.OrgGroupId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sm_org_group");
-
-            entity.HasOne(d => d.PcfsUnit).WithMany(p => p.SmEmissionFactorPcfsUnits)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.PcfsUnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_pcfs_unit_id");
-
-            entity.HasOne(d => d.Sf6Unit).WithMany(p => p.SmEmissionFactorSf6Units)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.Sf6UnitId)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_sf6_unit_id");
-
-            entity.HasOne(d => d.Unit).WithMany(p => p.SmEmissionFactorUnits)
-                .HasPrincipalKey(p => p.UnitId)
-                .HasForeignKey(d => d.UnitId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_sm_emission_factor_unit_id");
-        });
-
-        modelBuilder.Entity<SmEmissionFactorLibrary>(entity =>
-        {
-            entity.HasKey(e => new { e.OrgGroupId, e.EmissionFactorLibraryName }).HasName("pk_sm_emission_factor_library");
-
-            entity.ToTable("sm_emission_factor_library");
-
-            entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
-            entity.Property(e => e.EmissionFactorLibraryName)
-                .HasMaxLength(50)
-                .IsUnicode(false)
-                .HasColumnName("emission_factor_library_name");
-            entity.Property(e => e.ConfigurationType).HasColumnName("configuration_type");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
-                .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.DocRef)
-                .HasMaxLength(255)
-                .HasColumnName("doc_ref");
-            entity.Property(e => e.EmissionFactorLibraryId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("emission_factor_library_id");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
-            entity.Property(e => e.LastName)
-                .HasMaxLength(50)
-                .HasColumnName("last_name");
-            entity.Property(e => e.LibraryType).HasColumnName("library_type");
-            entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
-            entity.Property(e => e.ModifiedOn)
-                .HasColumnType("datetime")
-                .HasColumnName("modified_on");
-            entity.Property(e => e.OriginCorrelationId)
-                .HasMaxLength(50)
-                .HasColumnName("origin_correlation_id");
-            entity.Property(e => e.SystemStatus).HasColumnName("system_status");
-            entity.Property(e => e.Version)
-                .HasMaxLength(10)
-                .HasColumnName("version");
-            entity.Property(e => e.Year)
-                .HasMaxLength(4)
-                .HasColumnName("year");
-
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmEmissionFactorLibraryCreateBies)
-                .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_library_sm_user1");
-
-            entity.HasOne(d => d.ModifiedBy).WithMany(p => p.SmEmissionFactorLibraryModifiedBies)
-                .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.ModifiedById)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_library_sm_user2");
-
-            entity.HasOne(d => d.OrgGroup).WithMany(p => p.SmEmissionFactorLibraries)
-                .HasPrincipalKey(p => p.OrgGroupId)
-                .HasForeignKey(d => d.OrgGroupId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_sm_emission_factor_library_sm_org_group");
         });
 
         modelBuilder.Entity<SmFunctionModule>(entity =>
@@ -1244,14 +1639,14 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.Module)
                 .HasMaxLength(10)
                 .HasColumnName("module");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.FunctionId)
                 .ValueGeneratedOnAdd()
                 .HasColumnName("function_id");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -1273,19 +1668,19 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.LangName)
                 .HasMaxLength(30)
                 .HasColumnName("lang_name");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
                 .HasColumnName("modified_on");
             entity.Property(e => e.SystemStatus).HasColumnName("system_status");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmLanguageCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmLanguageCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_language_Tosm_user");
 
@@ -1316,11 +1711,11 @@ public partial class ESGDBContext : DbContext
                 .HasColumnName("business_registration_no");
             entity.Property(e => e.CityId).HasColumnName("city_id");
             entity.Property(e => e.CountryId).HasColumnName("country_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.Latitude)
                 .HasColumnType("decimal(10, 8)")
                 .HasColumnName("latitude");
@@ -1366,9 +1761,9 @@ public partial class ESGDBContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_org_group_Tosm_country");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmOrgGroupCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmOrgGroupCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_org_group_Tosm_user2");
 
@@ -1392,11 +1787,11 @@ public partial class ESGDBContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("permission_name");
             entity.Property(e => e.FunctionId).HasColumnName("function_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -1406,9 +1801,9 @@ public partial class ESGDBContext : DbContext
                 .HasColumnName("permission_id");
             entity.Property(e => e.SystemStatus).HasColumnName("system_status");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmPermissionCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmPermissionCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_permission_Tosm_user_Creareid");
 
@@ -1431,11 +1826,11 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.RoleName)
                 .HasMaxLength(50)
                 .HasColumnName("role_name");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -1445,9 +1840,9 @@ public partial class ESGDBContext : DbContext
                 .HasColumnName("role_id");
             entity.Property(e => e.SystemStatus).HasColumnName("system_status");
 
-            entity.HasOne(d => d.CreateBy).WithMany(p => p.SmRoleCreateBies)
+            entity.HasOne(d => d.CreatedBy).WithMany(p => p.SmRoleCreatedBies)
                 .HasPrincipalKey(p => p.UserId)
-                .HasForeignKey(d => d.CreateById)
+                .HasForeignKey(d => d.CreatedById)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_sm_role_Tosm_user");
 
@@ -1476,11 +1871,11 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.RoleName)
                 .HasMaxLength(50)
                 .HasColumnName("role_name");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -1518,10 +1913,10 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.Content3)
                 .HasMaxLength(255)
                 .HasColumnName("content3");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");
@@ -1543,11 +1938,11 @@ public partial class ESGDBContext : DbContext
 
             entity.Property(e => e.BaseUnitId).HasColumnName("base_unit_id");
             entity.Property(e => e.ConfigurationType).HasColumnName("configuration_type");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+                .HasColumnName("created_on");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)
                 .HasColumnType("datetime")
@@ -1581,10 +1976,10 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.CompanyNo)
                 .HasMaxLength(50)
                 .HasColumnName("company_no");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.Department)
                 .HasMaxLength(50)
                 .HasColumnName("department");
@@ -1594,7 +1989,7 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.FirstNameEn)
                 .HasMaxLength(50)
                 .HasColumnName("first_name_en");
-            entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
+            entity.Property(e => e.ImportSequenceNo).HasColumnName("import_sequence_no");
             entity.Property(e => e.IsOrgAdmin).HasColumnName("is_org_admin");
             entity.Property(e => e.IsSuperAdmin).HasColumnName("is_super_admin");
             entity.Property(e => e.JobTitle)
@@ -1642,10 +2037,10 @@ public partial class ESGDBContext : DbContext
             entity.Property(e => e.OrgGroupId).HasColumnName("org_group_id");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
-            entity.Property(e => e.CreateById).HasColumnName("create_by_id");
-            entity.Property(e => e.CreateOn)
+            entity.Property(e => e.CreatedById).HasColumnName("created_by_id");
+            entity.Property(e => e.CreatedOn)
                 .HasColumnType("datetime")
-                .HasColumnName("create_on");
+                .HasColumnName("created_on");
             entity.Property(e => e.ImportSeqnNo).HasColumnName("import_seqn_no");
             entity.Property(e => e.ModifiedById).HasColumnName("modified_by_id");
             entity.Property(e => e.ModifiedOn)

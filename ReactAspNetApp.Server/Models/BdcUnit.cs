@@ -25,11 +25,33 @@ public partial class BdcUnit
 
     public DateTime ModifiedOn { get; set; }
 
-    public int? ImportSeqnNo { get; set; }
+    public int? ImportSequenceNo { get; set; }
 
     public int ConfigurationType { get; set; }
 
     public int SystemStatus { get; set; }
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorBiogenicCo2FactorNavigations { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorCh4Units { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorCo2Units { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorCo2eUnits { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorGhgsUnits { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorHfcsUnits { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorN2oUnits { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorNf3Units { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorPcfsUnits { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorSf6Units { get; set; } = new List<BdcEmissionFactor>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactorUnits { get; set; } = new List<BdcEmissionFactor>();
 
     public virtual ICollection<BdcTransportationDistance> BdcTransportationDistances { get; set; } = new List<BdcTransportationDistance>();
 
@@ -39,29 +61,11 @@ public partial class BdcUnit
 
     public virtual SmUser ModifiedBy { get; set; } = null!;
 
+    public virtual ICollection<OghgIndustrialProcess> OghgIndustrialProcessOrgUnits { get; set; } = new List<OghgIndustrialProcess>();
+
+    public virtual ICollection<OghgIndustrialProcess> OghgIndustrialProcessQuantityUnits { get; set; } = new List<OghgIndustrialProcess>();
+
     public virtual SmOrgGroup OrgGroup { get; set; } = null!;
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorBiogenicCo2FactorNavigations { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorCh4Units { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorCo2Units { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorCo2eUnits { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorGhgsUnits { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorHfcsUnits { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorN2oUnits { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorNf3Units { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorPcfsUnits { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorSf6Units { get; set; } = new List<SmEmissionFactor>();
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactorUnits { get; set; } = new List<SmEmissionFactor>();
 
     public virtual BdcUnitLibrary UnitLibrary { get; set; } = null!;
 }

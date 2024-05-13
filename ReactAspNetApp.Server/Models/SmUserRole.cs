@@ -13,9 +13,9 @@ public partial class SmUserRole
 
     public int RoleId { get; set; }
 
-    public int CreateById { get; set; }
+    public int CreatedById { get; set; }
 
-    public DateTime CreateOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public int ModifiedById { get; set; }
 

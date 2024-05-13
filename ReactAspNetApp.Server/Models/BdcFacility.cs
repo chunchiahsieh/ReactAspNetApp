@@ -29,15 +29,15 @@ public partial class BdcFacility
 
     public string? Remark { get; set; }
 
-    public int CreateById { get; set; }
+    public int CreatedById { get; set; }
 
-    public DateTime CreateOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public int ModifiedById { get; set; }
 
     public DateTime ModifiedOn { get; set; }
 
-    public int? ImportSeqnNo { get; set; }
+    public int? ImportSequenceNo { get; set; }
 
     public int SystemStatus { get; set; }
 
@@ -45,9 +45,17 @@ public partial class BdcFacility
 
     public virtual SmCountry Country { get; set; } = null!;
 
-    public virtual SmUser CreateBy { get; set; } = null!;
+    public virtual SmUser CreatedBy { get; set; } = null!;
 
     public virtual SmUser ModifiedBy { get; set; } = null!;
+
+    public virtual ICollection<OghgEmployeeCommuting> OghgEmployeeCommutings { get; set; } = new List<OghgEmployeeCommuting>();
+
+    public virtual ICollection<OghgIndustrialProcess> OghgIndustrialProcesses { get; set; } = new List<OghgIndustrialProcess>();
+
+    public virtual ICollection<OghgMobileCombustion> OghgMobileCombustions { get; set; } = new List<OghgMobileCombustion>();
+
+    public virtual ICollection<OghgStationaryCombustion> OghgStationaryCombustions { get; set; } = new List<OghgStationaryCombustion>();
 
     public virtual SmOrgGroup OrgGroup { get; set; } = null!;
 

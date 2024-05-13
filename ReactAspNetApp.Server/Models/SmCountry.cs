@@ -9,17 +9,19 @@ public partial class SmCountry
 
     public string CountryCode { get; set; } = null!;
 
-    public int CreateById { get; set; }
+    public int CreatedById { get; set; }
 
-    public DateTime CreateOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public int ModifiedById { get; set; }
 
     public DateTime ModifiedOn { get; set; }
 
-    public string SystemStatus { get; set; } = null!;
+    public int SystemStatus { get; set; }
 
     public string? ThreeDigitalCode { get; set; }
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactors { get; set; } = new List<BdcEmissionFactor>();
 
     public virtual ICollection<BdcFacility> BdcFacilities { get; set; } = new List<BdcFacility>();
 
@@ -27,11 +29,9 @@ public partial class SmCountry
 
     public virtual ICollection<BdcOrgUnit> BdcOrgUnits { get; set; } = new List<BdcOrgUnit>();
 
-    public virtual SmUser CreateBy { get; set; } = null!;
+    public virtual SmUser CreatedBy { get; set; } = null!;
 
     public virtual SmUser ModifiedBy { get; set; } = null!;
-
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactors { get; set; } = new List<SmEmissionFactor>();
 
     public virtual ICollection<SmOrgGroup> SmOrgGroups { get; set; } = new List<SmOrgGroup>();
 }

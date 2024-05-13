@@ -41,19 +41,23 @@ public partial class SmOrgGroup
 
     public bool SpmPermission { get; set; }
 
-    public int CreateById { get; set; }
+    public int CreatedById { get; set; }
 
-    public DateTime CreateOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public int ModifiedById { get; set; }
 
     public DateTime ModifiedOn { get; set; }
 
-    public int? ImportSeqnNo { get; set; }
+    public int? ImportSequenceNo { get; set; }
 
     public int SystemStatus { get; set; }
 
     public virtual ICollection<BdcArVersion> BdcArVersions { get; set; } = new List<BdcArVersion>();
+
+    public virtual ICollection<BdcEmissionFactorLibrary> BdcEmissionFactorLibraries { get; set; } = new List<BdcEmissionFactorLibrary>();
+
+    public virtual ICollection<BdcEmissionFactor> BdcEmissionFactors { get; set; } = new List<BdcEmissionFactor>();
 
     public virtual ICollection<BdcFacility> BdcFacilities { get; set; } = new List<BdcFacility>();
 
@@ -77,13 +81,17 @@ public partial class SmOrgGroup
 
     public virtual SmCountry Country { get; set; } = null!;
 
-    public virtual SmUser CreateBy { get; set; } = null!;
+    public virtual SmUser CreatedBy { get; set; } = null!;
 
     public virtual SmUser ModifiedBy { get; set; } = null!;
 
-    public virtual ICollection<SmEmissionFactorLibrary> SmEmissionFactorLibraries { get; set; } = new List<SmEmissionFactorLibrary>();
+    public virtual ICollection<OghgEmployeeCommuting> OghgEmployeeCommutings { get; set; } = new List<OghgEmployeeCommuting>();
 
-    public virtual ICollection<SmEmissionFactor> SmEmissionFactors { get; set; } = new List<SmEmissionFactor>();
+    public virtual ICollection<OghgIndustrialProcess> OghgIndustrialProcesses { get; set; } = new List<OghgIndustrialProcess>();
+
+    public virtual ICollection<OghgMobileCombustion> OghgMobileCombustions { get; set; } = new List<OghgMobileCombustion>();
+
+    public virtual ICollection<OghgStationaryCombustion> OghgStationaryCombustions { get; set; } = new List<OghgStationaryCombustion>();
 
     public virtual ICollection<SmRole> SmRoles { get; set; } = new List<SmRole>();
 }

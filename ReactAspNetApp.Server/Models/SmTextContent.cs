@@ -19,9 +19,9 @@ public partial class SmTextContent
 
     public string? Content3 { get; set; }
 
-    public int CreateById { get; set; }
+    public int CreatedById { get; set; }
 
-    public DateTime CreateOn { get; set; }
+    public DateTime CreatedOn { get; set; }
 
     public int ModifiedById { get; set; }
 

@@ -39,7 +39,7 @@ public partial class BdcGreenhouseGa
 
     public DateTime ModifiedOn { get; set; }
 
-    public int? ImportSeqnNo { get; set; }
+    public int? ImportSequenceNo { get; set; }
 
     public int ConfigurationType { get; set; }
 

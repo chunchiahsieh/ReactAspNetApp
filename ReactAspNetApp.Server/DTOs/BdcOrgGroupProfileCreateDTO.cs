@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace ReactAspNetApp.Server.Models;
 
-public partial class BdcOrgGroupProfile
+public partial class BdcOrgGroupProfileCreateDTO
 {
     public int OrgGroupProfileId { get; set; }
 
@@ -52,4 +53,12 @@ public partial class BdcOrgGroupProfile
     public virtual SmUser ModifiedBy { get; set; } = null!;
 
     public virtual SmOrgGroup OrgGroup { get; set; } = null!;
+}
+
+public class CreateDTO2BdcOrgGroupProfile : Profile
+{
+    public CreateDTO2BdcOrgGroupProfile()
+    {
+        CreateMap<BdcOrgGroupProfileCreateDTO, BdcOrgGroupProfile>().ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+    }
 }

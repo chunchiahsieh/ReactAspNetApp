@@ -9,8 +9,6 @@ public partial class BdcTransportationDistance
 
     public int OrgGroupId { get; set; }
 
-    public string TransportationDistanceName { get; set; } = null!;
-
     public string ShipFrom { get; set; } = null!;
 
     public string ShipTo { get; set; } = null!;
